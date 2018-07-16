@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">FragMem</string>
+    <string name="title_activity_frag_list">FragList</string>
+    <string name="Settings">Settings</string>
+    <string name="About">About</string>
+    <string name="Edit">Edit</string>
+    <string name="Delete">Delete</string>
+    <string name="Done">Done</string>
+    <string name="Title">Title</string>
+    <string name="Content">Content</string>
+    <string name="quitEditing">Discard your changes and quit editing? </string>
+    <string name="keepEditing">Keep Editing</string>
+    <string name="Discard">Discard</string>
+    <string name="newFrag">New Frag</string>
+    <string name="newContent">New content</string>
+    <string name="title_activity_frag_detail">FragDetailActivity</string>
+    <string name="deleteFrag">Delete this frag? </string>
+    <string name="Cancel">Cancel</string>
+    <string name="fragSaved">Frag saved</string>
+    <string name="fragDeleted">Frag deleted</string>
+    <string name="aboutMessage">Version: 0.1.0\nLicense: GNU GPL V3\nDeveloper: HurryPeng\nProject website: https://github.com/HurryPeng/FragMem</string>
+    <string name="testJSON">[{"id":1,"title":"qwert","content":"qwert means a kind of keyboard"},{"id":2,"title":"yuiop","content":"yuiop is just noting"},{"id":3,"title":"asdfg","content":"asdfg are most commonly used in CoD series"},{"id":4,"title":"hjkll","content":"hjkll holds your right hand when typing"},{"id":5,"title":"zxcvb","content":"zxcvb is sometimes used as a password"},{"id":6,"title":"nmmmd","content":"nmmmd quite gross eh"}]</string>
 </resources>

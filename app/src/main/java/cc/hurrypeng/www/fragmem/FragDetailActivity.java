@@ -3,12 +3,15 @@ package cc.hurrypeng.www.fragmem;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +29,11 @@ public class FragDetailActivity extends AppCompatActivity {
 
     TextView textViewTitle;
     TextView textViewContent;
+    ImageView imageView;
 
     int position;
+
+    FileHelper fileHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +42,11 @@ public class FragDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        fileHelper = new FileHelper(this);
+
         textViewTitle = findViewById(R.id.title);
         textViewContent = findViewById(R.id.content);
+        imageView = findViewById(R.id.imageView);
 
         Intent intentReceived = getIntent();
         position = intentReceived.getIntExtra("position", 0);
@@ -47,11 +56,20 @@ public class FragDetailActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        fragList = Util.getFragList(this);
+        fragList = fileHelper.getFragList();
         frag = fragList.get(position);
 
         textViewTitle.setText(frag.getTitle());
         textViewContent.setText(frag.getContent());
+
+        if (!frag.getImagePath().equals("empty")) {
+            try {
+                Bitmap bitmap = BitmapFactory.decodeFile(frag.getImagePath());
+                imageView.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -70,7 +88,7 @@ public class FragDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         fragList.remove(position);
-                        Util.saveFragList(FragDetailActivity.this, fragList);
+                        fileHelper.saveFragList(fragList);
                         Toast.makeText(FragDetailActivity.this, getString(R.string.fragDeleted), Toast.LENGTH_SHORT).show();
                         finish();
                     }

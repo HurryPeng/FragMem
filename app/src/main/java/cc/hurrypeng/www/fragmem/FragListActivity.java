@@ -22,11 +22,21 @@ public class FragListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+    SharedPreferences sp;
+    SharedPreferences.Editor spEditor;
+
+    FileHelper fileHelper;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frag_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        fileHelper = new FileHelper(this);
+
+        sp = getSharedPreferences("fragmem", MODE_PRIVATE);
+        spEditor = sp.edit();
 
         recyclerView = findViewById(R.id.recyclerView);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -36,8 +46,11 @@ public class FragListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragList.add(new Frag(fragList.size() + 1, getString(R.string.newFrag), getString(R.string.newContent)));
-                Util.saveFragList(FragListActivity.this, fragList);
+                int id = sp.getInt("nextId", 0);
+                spEditor.putInt("nextId", id + 1);
+                spEditor.apply();
+                fragList.add(new Frag(id, getString(R.string.newFrag), getString(R.string.newContent), "empty"));
+                fileHelper.saveFragList(fragList);
                 Intent intent = new Intent(FragListActivity.this, EditFragActivity.class);
                 intent.putExtra("request", Util.REQUEST_NEW_FRAG);
                 intent.putExtra("position", fragList.size() - 1);
@@ -49,7 +62,7 @@ public class FragListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        fragList = Util.getFragList(this);
+        fragList = fileHelper.getFragList();
         FragAdapter adapter = new FragAdapter(this, fragList);
         recyclerView.setAdapter(adapter);
     }
@@ -62,7 +75,7 @@ public class FragListActivity extends AppCompatActivity {
                 switch (resultCode) {
                     case Util.RESULT_EDIT_DISCARDED: {
                         fragList.remove(fragList.size() - 1);
-                        Util.saveFragList(this ,fragList);
+                        fileHelper.saveFragList(fragList);
                         break;
                     }
                     default: break;

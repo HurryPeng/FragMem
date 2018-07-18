@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -40,20 +41,32 @@ public class Util {
         private String title;
         private String content;
         private String imagePath;
+        private long timeLastMem;
+        private int shortTermMemoryMax;
+        private int longTermMemory;
+        private int shortTermMemory;
 
-        public Frag(int id, String title, String content, String imagePath) {
+        public Frag(int id, String title, String content, String imagePath, long timeLastMem, int shortTermMemoryMax , int longTermMemory, int shortTermMemory) {
             this.id = id;
             this.title = title;
             this.content = content;
             this.imagePath = imagePath;
+            this.timeLastMem = timeLastMem;
+            this.shortTermMemoryMax = shortTermMemoryMax;
+            this.longTermMemory =longTermMemory;
+            this.shortTermMemory =shortTermMemory;
         }
 
         public Frag(int id, String title, String content) {
-            this(id, title, content, "");
+            this(id, title, content, "empty", 0, 0, 0, 0);
+        }
+
+        public Frag(int id) {
+            this(id, "", "");
         }
 
         public Frag() {
-            this(0 ,"New Title", "New content");
+            this(0);
         }
 
         public void setId(int id) {
@@ -72,6 +85,22 @@ public class Util {
             this.imagePath = imagePath;
         }
 
+        public void setTimeLastMem(long timeLastMem) {
+            this.timeLastMem = timeLastMem;
+        }
+
+        public void setShortTermMemoryMax(int shortTermMemoryMax) {
+            this.shortTermMemoryMax = shortTermMemoryMax;
+        }
+
+        public void setLongTermMemory(int longTermMemory) {
+            this.longTermMemory = longTermMemory;
+        }
+
+        public void setShortTermMemory(int shortTermMemory) {
+            this.shortTermMemory = shortTermMemory;
+        }
+
         public int getId() {
             return id;
         }
@@ -86,6 +115,29 @@ public class Util {
 
         public String getImagePath() {
             return imagePath;
+        }
+
+        public long getTimeLastMem() {
+            return timeLastMem;
+        }
+
+        public int getShortTermMemoryMax() {
+            return shortTermMemoryMax;
+        }
+
+        public int getLongTermMemory () {
+            return longTermMemory;
+        }
+
+        public int getShortTermMemory() {
+            return shortTermMemory;
+        }
+
+        public int calculateShortTermMemory(long timeCurrentMillis) {
+            int realShortTimeMemory = (int) Math.round((125 - 5.25 * Math.log(33333333*((double) (timeCurrentMillis - timeLastMem) / 3600000 + 0.000001)))*((double) (shortTermMemoryMax - longTermMemory) / 100) + longTermMemory);
+            if (realShortTimeMemory < longTermMemory) shortTermMemory = longTermMemory;
+            else shortTermMemory = realShortTimeMemory;
+            return shortTermMemory;
         }
 
     }

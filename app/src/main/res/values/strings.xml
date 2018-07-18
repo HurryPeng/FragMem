@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">FragMem</string>
-    <string name="title_activity_frag_list">FragList</string>
+    <string name="Frag">Frag</string>
+    <string name="Mem">Mem</string>
+    <string name="title_activity_frag_list">Frag List</string>
+    <string name="title_activity_edit_frag">Edit Frag</string>
     <string name="Settings">Settings</string>
     <string name="About">About</string>
     <string name="Edit">Edit</string>
@@ -11,12 +14,18 @@
     <string name="quitEditing">Discard your changes and quit editing? </string>
     <string name="keepEditing">Keep Editing</string>
     <string name="Discard">Discard</string>
-    <string name="newFrag">New Frag</string>
-    <string name="newContent">New content</string>
-    <string name="title_activity_frag_detail">FragDetailActivity</string>
+    <string name="title_activity_frag_detail">Frag Detail</string>
     <string name="deleteFrag">Delete this frag? </string>
     <string name="Cancel">Cancel</string>
     <string name="fragSaved">Frag saved</string>
     <string name="fragDeleted">Frag deleted</string>
-    <string name="aboutMessage">Version: 0.2.0\nLicense: GNU GPL V3\nDeveloper: HurryPeng\nProject website: https://github.com/HurryPeng/FragMem</string>
+    <string name="STM">STM:</string>
+    <string name="LTM">LTM:</string>
+    <string name="lastReview">Last review:</string>
+    <string name="aboutMessage">Version: 0.3.0\nLicense: GNU GPL V3\nDeveloper: HurryPeng GrakePch\nProject website: https://github.com/HurryPeng/FragMem</string>
+    <string name="title_activity_memorise">Memorise</string>
+    <string name="canRecall">Can recall</string>
+    <string name="cantRecall">Can\'t recall</string>
+    <string name="Vague">Vague</string>
+    <string name="noMoreFrags">no more frags</string>
 </resources>

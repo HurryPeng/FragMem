@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import cc.hurrypeng.www.fragmem.Util.*;
@@ -24,10 +26,8 @@ public class FragDetailActivity extends AppCompatActivity {
     List<Frag> fragList;
     Frag frag;
 
-    SharedPreferences spFrag;
-    SharedPreferences.Editor spFragEditor;
-
     TextView textViewTitle;
+    TextView textViewMem;
     TextView textViewContent;
     ImageView imageView;
 
@@ -45,6 +45,7 @@ public class FragDetailActivity extends AppCompatActivity {
         fileHelper = new FileHelper(this);
 
         textViewTitle = findViewById(R.id.title);
+        textViewMem = findViewById(R.id.memory);
         textViewContent = findViewById(R.id.content);
         imageView = findViewById(R.id.imageView);
 
@@ -60,6 +61,9 @@ public class FragDetailActivity extends AppCompatActivity {
         frag = fragList.get(position);
 
         textViewTitle.setText(frag.getTitle());
+        Date date = new Date(frag.getTimeLastMem());
+        String stringMem = getString(R.string.STM) + frag.calculateShortTermMemory(System.currentTimeMillis()) + "   " + getString(R.string.LTM) + frag.getLongTermMemory() + '\n' + getString(R.string.lastReview) + SimpleDateFormat.getDateTimeInstance().format(date);
+        textViewMem.setText(stringMem);
         textViewContent.setText(frag.getContent());
 
         if (!frag.getImagePath().equals("empty")) {

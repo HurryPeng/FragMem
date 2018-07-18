@@ -6,14 +6,15 @@ android {
         applicationId "cc.hurrypeng.www.fragmem"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 4
-        versionName "0.2.0"
+        versionCode 5
+        versionName "0.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++11"
             }
         }
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -36,6 +37,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.android.support:design:28.0.0-alpha3'
     implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.android.support:support-vector-drawable:28.0.0-alpha3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

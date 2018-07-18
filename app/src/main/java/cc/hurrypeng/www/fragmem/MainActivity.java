@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
+    Button buttonFrag;
+    Button buttonMem;
+
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
 
@@ -42,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(stringFromJNI());
 
-        Button buttonList = findViewById(R.id.buttonList);
-        buttonList.setOnClickListener(new View.OnClickListener() {
+        buttonFrag = findViewById(R.id.buttonFrag);
+        buttonMem = findViewById(R.id.buttonMem);
+
+        buttonFrag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, FragListActivity.class);
@@ -51,9 +56,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonMem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MemoriseActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // generate a set of frags when the app is installed
         if (!sp.getBoolean("initialised", false)) {
-            fileHelper.saveExternalFile("frags.json", "[{\"id\":1,\"title\":\"qwert\",\"content\":\"qwert means a kind of keyboard\",\"imagePath\":\"empty\"},{\"id\":2,\"title\":\"yuiop\",\"content\":\"yuiop is just noting\",\"imagePath\":\"empty\"},{\"id\":3,\"title\":\"asdfg\",\"content\":\"asdfg are most commonly used in CoD series\",\"imagePath\":\"empty\"},{\"id\":4,\"title\":\"hjkll\",\"content\":\"hjkll holds your right hand when typing\",\"imagePath\":\"empty\"},{\"id\":5,\"title\":\"zxcvb\",\"content\":\"zxcvb is sometimes used as a password\",\"imagePath\":\"empty\"},{\"id\":6,\"title\":\"nmmmd\",\"content\":\"nmmmd quite gross eh\",\"imagePath\":\"empty\"}]");
+            fileHelper.saveExternalFile("frags.json", "[{\"id\":1,\"title\":\"qwert\",\"content\":\"qwert means a kind of keyboard\",\"imagePath\":\"empty\",\"timeLastMem\":1531908909000,\"shortTermMemoryMax\":100,\"longTermMemory\":20,\"shortTermMemory\":0},{\"id\":2,\"title\":\"yuiop\",\"content\":\"yuiop is just noting\",\"imagePath\":\"empty\",\"timeLastMem\":1531908909000,\"shortTermMemoryMax\":68,\"longTermMemory\":36,\"shortTermMemory\":0},{\"id\":3,\"title\":\"asdfg\",\"content\":\"asdfg are most commonly used in CoD series\",\"imagePath\":\"empty\",\"timeLastMem\":1531908909000,\"shortTermMemoryMax\":100,\"longTermMemory\":36,\"shortTermMemory\":0},{\"id\":4,\"title\":\"hjkll\",\"content\":\"hjkll holds your right hand when typing\",\"imagePath\":\"empty\",\"timeLastMem\":1531908909000,\"shortTermMemoryMax\":100,\"longTermMemory\":20,\"shortTermMemory\":0},{\"id\":5,\"title\":\"zxcvb\",\"content\":\"zxcvb is sometimes used as a password\",\"imagePath\":\"empty\",\"timeLastMem\":1531908909000,\"shortTermMemoryMax\":100,\"longTermMemory\":20,\"shortTermMemory\":0},{\"id\":6,\"title\":\"nmmmd\",\"content\":\"nmmmd quite gross eh\",\"imagePath\":\"empty\",\"timeLastMem\":1531908909000,\"shortTermMemoryMax\":100,\"longTermMemory\":20,\"shortTermMemory\":0}]");
             spEditor.putBoolean("initialised", true);
             spEditor.putInt("nextId", 7);
             spEditor.apply();

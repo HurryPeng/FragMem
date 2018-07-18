@@ -49,7 +49,7 @@ public class FragListActivity extends AppCompatActivity {
                 int id = sp.getInt("nextId", 0);
                 spEditor.putInt("nextId", id + 1);
                 spEditor.apply();
-                fragList.add(new Frag(id, getString(R.string.newFrag), getString(R.string.newContent), "empty"));
+                fragList.add(new Frag(id));
                 fileHelper.saveFragList(fragList);
                 Intent intent = new Intent(FragListActivity.this, EditFragActivity.class);
                 intent.putExtra("request", Util.REQUEST_NEW_FRAG);

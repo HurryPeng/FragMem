@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">碎记</string>
+    <string name="Frag">碎</string>
+    <string name="Mem">记</string>
     <string name="title_activity_frag_list">碎片列表</string>
+    <string name="title_activity_edit_frag">编辑碎片</string>
     <string name="Settings">设置</string>
     <string name="About">关于</string>
     <string name="Edit">编辑</string>
@@ -11,12 +14,18 @@
     <string name="quitEditing">放弃更改并退出编辑？</string>
     <string name="keepEditing">继续编辑</string>
     <string name="Discard">放弃</string>
-    <string name="newFrag">新碎片</string>
-    <string name="newContent">新内容</string>
     <string name="title_activity_frag_detail">碎片详情</string>
     <string name="deleteFrag">删除该碎片？</string>
     <string name="Cancel">取消</string>
     <string name="fragSaved">碎片已保存</string>
     <string name="fragDeleted">碎片已删除</string>
-    <string name="aboutMessage">版本: 0.2.0\n许可证: GNU GPL V3\n开发者: HurryPeng\n项目网站: https://github.com/HurryPeng/FragMem</string>
+    <string name="STM">短时记忆:</string>
+    <string name="LTM">长时记忆:</string>
+    <string name="lastReview">最近复习:</string>
+    <string name="aboutMessage">版本: 0.3.0\n许可证: GNU GPL V3\n开发者: HurryPeng GrakePch\n项目网站: https://github.com/HurryPeng/FragMem</string>
+    <string name="title_activity_memorise">记忆</string>
+    <string name="canRecall">记得</string>
+    <string name="cantRecall">不记得</string>
+    <string name="Vague">模糊</string>
+    <string name="noMoreFrags">没有碎片了</string>
 </resources>

@@ -4,12 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ public class MemoriseActivity extends AppCompatActivity {
 
     FileHelper fileHelper;
 
-    View layoutCard;
+    View layoutConstraint;
     View layoutHide;
     Button buttonNo;
     Button buttonVague;
@@ -50,14 +48,14 @@ public class MemoriseActivity extends AppCompatActivity {
 
         fileHelper = new FileHelper(this);
 
-        layoutCard = findViewById(R.id.layoutCard);
+        layoutConstraint = findViewById(R.id.layoutConstraint);
         layoutHide = findViewById(R.id.layoutHide);
         buttonNo = findViewById(R.id.buttonNo);
         buttonVague = findViewById(R.id.buttonVague);
         buttonYes = findViewById(R.id.buttonYes);
-        textViewTitle = findViewById(R.id.title);
-        textViewMem = findViewById(R.id.memory);
-        textViewContent = findViewById(R.id.content);
+        textViewTitle = findViewById(R.id.textViewTitle);
+        textViewMem = findViewById(R.id.textViewMemory);
+        textViewContent = findViewById(R.id.textViewContent);
         imageView = findViewById(R.id.imageView);
 
         long timeCurrent = System.currentTimeMillis();
@@ -78,9 +76,10 @@ public class MemoriseActivity extends AppCompatActivity {
 
         nextFrag(0);
 
-        layoutCard.setOnClickListener(new View.OnClickListener() {
+        layoutConstraint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.getParent().requestDisallowInterceptTouchEvent(true);
                 if(position >= fragListSorted.size()) return;
                 if(visible) {
                     layoutHide.setVisibility(View.INVISIBLE);
@@ -165,7 +164,7 @@ public class MemoriseActivity extends AppCompatActivity {
         textViewMem.setText(stringMem);
         textViewContent.setText(frag.getContent());
         if (frag.getImagePath().equals("empty")) {
-            imageView.setVisibility(View.INVISIBLE);
+            imageView.setImageDrawable(null);
         }
         else {
             try {

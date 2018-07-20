@@ -2,7 +2,6 @@ package cc.hurrypeng.www.fragmem;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -44,9 +43,9 @@ public class FragDetailActivity extends AppCompatActivity {
 
         fileHelper = new FileHelper(this);
 
-        textViewTitle = findViewById(R.id.title);
-        textViewMem = findViewById(R.id.memory);
-        textViewContent = findViewById(R.id.content);
+        textViewTitle = findViewById(R.id.textViewTitle);
+        textViewMem = findViewById(R.id.textViewMemory);
+        textViewContent = findViewById(R.id.textViewContent);
         imageView = findViewById(R.id.imageView);
 
         Intent intentReceived = getIntent();

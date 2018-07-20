@@ -1,17 +1,33 @@
 package cc.hurrypeng.www.fragmem;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
 
 import cc.hurrypeng.www.fragmem.Util.*;
 
@@ -70,6 +86,50 @@ public class MainActivity extends AppCompatActivity {
             spEditor.putBoolean("initialised", true);
             spEditor.putInt("nextId", 7);
             spEditor.apply();
+
+            File fileImg1;
+            File fileImg2;
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 4;
+
+            Bitmap bmImg1 = BitmapFactory.decodeResource(getResources(), R.drawable.img_example_portrait, options);
+            try {
+                fileImg1 = new File(fileHelper.getExternalPath()+ "image_frag" + 1 + ".jpg");
+                if (!fileImg1.exists()) {
+                    fileImg1.getParentFile().mkdirs();
+                    fileImg1.createNewFile();
+                }
+                FileOutputStream fos = new FileOutputStream(fileImg1);
+                bmImg1.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Bitmap bmImg2 = BitmapFactory.decodeResource(getResources(), R.drawable.img_example_landscape, options);
+            try {
+                fileImg2 = new File(fileHelper.getExternalPath()+ "image_frag" + 2 + ".jpg");
+                if (!fileImg2.exists()) {
+                    fileImg2.getParentFile().mkdirs();
+                    fileImg2.createNewFile();
+                }
+                FileOutputStream fos = new FileOutputStream(fileImg2);
+                bmImg2.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            List<Frag> fragList = fileHelper.getFragList();
+            Frag frag1 = fragList.get(0);
+            Frag frag2 = fragList.get(1);
+            frag1.setImagePath(fileHelper.getExternalPath()+ "image_frag" + 1 + ".jpg");
+            frag2.setImagePath(fileHelper.getExternalPath()+ "image_frag" + 2 + ".jpg");
+            fragList.set(0, frag1);
+            fragList.set(1, frag2);
+            fileHelper.saveFragList(fragList);
         }
     }
 

@@ -41,7 +41,7 @@ public class FragAdapter extends RecyclerView.Adapter<FragAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.frag_item, parent, false);
+                .inflate(R.layout.item_frag, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

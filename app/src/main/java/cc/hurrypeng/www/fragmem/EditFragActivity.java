@@ -52,8 +52,8 @@ public class EditFragActivity extends AppCompatActivity {
 
         fileHelper = new FileHelper(this);
 
-        editTextTitle = findViewById(R.id.title);
-        editTextContent = findViewById(R.id.content);
+        editTextTitle = findViewById(R.id.textViewTitle);
+        editTextContent = findViewById(R.id.textViewContent);
         imageView = findViewById(R.id.imageView);
 
         Intent intentReceived = getIntent();

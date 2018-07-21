@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
                 break;
             }
-            case R.id.home: {
+            case android.R.id.home: {
                 fragList.add(new Frag(System.currentTimeMillis()));
                 fileHelper.saveFragList(fragList);
                 Intent intent = new Intent(MainActivity.this, EditFragActivity.class);

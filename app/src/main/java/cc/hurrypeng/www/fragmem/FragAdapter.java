@@ -2,12 +2,14 @@ package cc.hurrypeng.www.fragmem;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cc.hurrypeng.www.fragmem.Util.*;
@@ -19,7 +21,7 @@ import cc.hurrypeng.www.fragmem.Util.*;
 public class FragAdapter extends RecyclerView.Adapter<FragAdapter.ViewHolder> {
 
     private Context context;
-    private List<Frag> fragList;
+    private List<Frag> fragList = new ArrayList<>();
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
@@ -49,17 +51,17 @@ public class FragAdapter extends RecyclerView.Adapter<FragAdapter.ViewHolder> {
                 int position = holder.getAdapterPosition();
                 Intent intent = new Intent(context, FragDetailActivity.class);
                 intent.putExtra("position", position);
-                context.startActivity(intent);
+                ((AppCompatActivity)context).startActivityForResult(intent, Util.REQUEST_FRAG_DETAIL);
             }
         });
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Frag frag = fragList.get(position);
-        holder.textViewTitle.setText(frag.getTitle());
-        holder.textViewContent.setText(frag.getContent());
+        viewHolder.textViewTitle.setText(frag.getTitle());
+        viewHolder.textViewContent.setText(frag.getContent());
     }
 
     @Override

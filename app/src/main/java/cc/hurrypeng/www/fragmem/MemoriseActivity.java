@@ -2,12 +2,17 @@ package cc.hurrypeng.www.fragmem;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,15 +29,16 @@ public class MemoriseActivity extends AppCompatActivity {
     private final int STATE_VAGUE = 0;
     private final int STATE_YES = 1;
 
-    List<Frag> fragListSorted;
+    List<Frag> fragListSorted = new ArrayList<>();
     Frag frag;
     int position;
     boolean visible;
 
     FileHelper fileHelper;
 
-    View layoutConstraint;
-    View layoutHide;
+    FrameLayout layoutFrame;
+    ConstraintLayout layoutContent;
+    ConstraintLayout layoutHide;
     Button buttonNo;
     Button buttonVague;
     Button buttonYes;
@@ -40,6 +46,7 @@ public class MemoriseActivity extends AppCompatActivity {
     TextView textViewMem;
     TextView textViewContent;
     ImageView imageView;
+    PhotoView photoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +55,20 @@ public class MemoriseActivity extends AppCompatActivity {
 
         fileHelper = new FileHelper(this);
 
-        layoutConstraint = findViewById(R.id.layoutConstraint);
+        layoutFrame = findViewById(R.id.layoutFrame);
+        layoutContent = findViewById(R.id.layoutContent);
         layoutHide = findViewById(R.id.layoutHide);
         buttonNo = findViewById(R.id.buttonNo);
         buttonVague = findViewById(R.id.buttonVague);
         buttonYes = findViewById(R.id.buttonYes);
-        textViewTitle = findViewById(R.id.textViewTitle);
+        textViewTitle = findViewById(R.id.editTextTitle);
         textViewMem = findViewById(R.id.textViewMemory);
-        textViewContent = findViewById(R.id.textViewContent);
+        textViewContent = findViewById(R.id.textInputEditTextContent);
         imageView = findViewById(R.id.imageView);
+        photoView = findViewById(R.id.photoView);
 
         long timeCurrent = System.currentTimeMillis();
-        fragListSorted = fileHelper.getFragList();
+        fileHelper.getFragList(fragListSorted);
         for (Frag frag : fragListSorted) {
             frag.calculateShortTermMemory(timeCurrent);
         }
@@ -76,7 +85,7 @@ public class MemoriseActivity extends AppCompatActivity {
 
         nextFrag(0);
 
-        layoutConstraint.setOnClickListener(new View.OnClickListener() {
+        layoutContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.getParent().requestDisallowInterceptTouchEvent(true);
@@ -110,6 +119,24 @@ public class MemoriseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 nextFrag(STATE_YES);
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                photoView.setBackgroundColor(0xff000000);
+                photoView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        photoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                photoView.setBackgroundColor(0x00ffffff);
+                photoView.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -165,11 +192,13 @@ public class MemoriseActivity extends AppCompatActivity {
         textViewContent.setText(frag.getContent());
         if (frag.getImagePath().equals("empty")) {
             imageView.setImageDrawable(null);
+            photoView.setImageDrawable(null);
         }
         else {
             try {
                 Bitmap bitmap = BitmapFactory.decodeFile(frag.getImagePath());
                 imageView.setImageBitmap(bitmap);
+                photoView.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }

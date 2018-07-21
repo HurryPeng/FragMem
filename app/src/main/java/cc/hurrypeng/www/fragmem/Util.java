@@ -31,13 +31,19 @@ public class Util {
 
     static public final int REQUEST_EDIT_FRAG = 1;
     static public final int REQUEST_NEW_FRAG = 2;
+    static public final int REQUEST_FRAG_DETAIL = 3;
+
     static public final int RESULT_EDIT_SAVED = 1;
     static public final int RESULT_EDIT_DISCARDED = 2;
+    static public final int RESULT_FRAG_DELETED = 3;
+    static public final int RESULT_FRAG_VIEWED = 4;
+
     static public final int REQUEST_TAKE_PHOTO = 1;
+    static public final int REQUEST_PICK_IMAGE = 2;
 
     static public class Frag {
 
-        private int id;
+        private long id;
         private String title;
         private String content;
         private String imagePath;
@@ -46,7 +52,7 @@ public class Util {
         private int longTermMemory;
         private int shortTermMemory;
 
-        public Frag(int id, String title, String content, String imagePath, long timeLastMem, int shortTermMemoryMax , int longTermMemory, int shortTermMemory) {
+        public Frag(long id, String title, String content, String imagePath, long timeLastMem, int shortTermMemoryMax , int longTermMemory, int shortTermMemory) {
             this.id = id;
             this.title = title;
             this.content = content;
@@ -57,11 +63,11 @@ public class Util {
             this.shortTermMemory =shortTermMemory;
         }
 
-        public Frag(int id, String title, String content) {
-            this(id, title, content, "empty", 0, 0, 0, 0);
+        public Frag(long id, String title, String content) {
+            this(id, title, content, "empty", id, 0, 0, 0);
         }
 
-        public Frag(int id) {
+        public Frag(long id) {
             this(id, "", "");
         }
 
@@ -69,7 +75,7 @@ public class Util {
             this(0);
         }
 
-        public void setId(int id) {
+        public void setId(long id) {
             this.id = id;
         }
 
@@ -101,7 +107,7 @@ public class Util {
             this.shortTermMemory = shortTermMemory;
         }
 
-        public int getId() {
+        public long getId() {
             return id;
         }
 
@@ -227,10 +233,12 @@ public class Util {
             saveExternalFile("frags.json", strJson);
         }
 
-        public List<Frag> getFragList() {
+        public void getFragList(List<Frag> fragList) {
             String strJson = loadSDFile("frags.json");
             strJson = strJson.replaceAll(" ", "nbsp"); // Gson will drop dead when it meets a space in a json string
-            List<Frag> fragList = gson.fromJson(strJson, new TypeToken<List<Frag>>(){}.getType());
+            List<Frag> newFragList = gson.fromJson(strJson, new TypeToken<List<Frag>>(){}.getType());
+            fragList.clear();
+            fragList.addAll(newFragList);
             for (Frag frag : fragList) {
                 String title = frag.getTitle();
                 title = title.replaceAll("nbsp", " ");
@@ -239,7 +247,6 @@ public class Util {
                 content = content.replaceAll("nbsp", " ");
                 frag.setContent(content);
             }
-            return fragList;
         }
 
         /**

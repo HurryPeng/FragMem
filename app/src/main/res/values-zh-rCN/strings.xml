@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">碎记</string>
     <string name="Frag">碎</string>
@@ -22,10 +23,12 @@
     <string name="STM">短时记忆:</string>
     <string name="LTM">长时记忆:</string>
     <string name="lastReview">最近复习:</string>
-    <string name="aboutMessage">版本: 0.3.0\n许可证: GNU GPL V3\n开发者: HurryPeng GrakePch\n项目网站: https://github.com/HurryPeng/FragMem</string>
+    <string name="aboutMessage">版本: 0.3.1\n许可证: GNU GPL V3\n开发者: HurryPeng GrakePch\n项目网站: https://github.com/HurryPeng/FragMem</string>
     <string name="title_activity_memorise">记忆</string>
     <string name="canRecall">记得</string>
     <string name="cantRecall">不记得</string>
     <string name="Vague">模糊</string>
     <string name="noMoreFrags">没有碎片了</string>
+    <string name="Camera">相机</string>
+    <string name="Gallery">图库</string>
 </resources>

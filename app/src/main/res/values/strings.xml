@@ -22,10 +22,12 @@
     <string name="STM">STM:</string>
     <string name="LTM">LTM:</string>
     <string name="lastReview">Last review:</string>
-    <string name="aboutMessage">Version: 0.3.0\nLicense: GNU GPL V3\nDeveloper: HurryPeng GrakePch\nProject website: https://github.com/HurryPeng/FragMem</string>
+    <string name="aboutMessage">Version: 0.3.1\nLicense: GNU GPL V3\nDeveloper: HurryPeng GrakePch\nProject website: https://github.com/HurryPeng/FragMem</string>
     <string name="title_activity_memorise">Memorise</string>
     <string name="canRecall">Can recall</string>
     <string name="cantRecall">Can\'t recall</string>
     <string name="Vague">Vague</string>
+    <string name="Camera">Camera</string>
+    <string name="Gallery">Gallery</string>
     <string name="noMoreFrags">no more frags</string>
 </resources>

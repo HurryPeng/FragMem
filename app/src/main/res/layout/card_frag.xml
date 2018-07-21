@@ -18,12 +18,12 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/layoutConstraint"
+            android:id="@+id/layoutContent"
             tools:context="cc.hurrypeng.www.fragmem.FragDetailActivity"
             tools:showIn="@layout/activity_frag_detail">
 
             <TextView
-                android:id="@+id/textViewTitle"
+                android:id="@+id/editTextTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -42,7 +42,7 @@
                 android:text="mem"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/layoutHide"
@@ -51,7 +51,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textViewMemory">
 
                 <TextView
-                    android:id="@+id/textViewContent"
+                    android:id="@+id/textInputEditTextContent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
@@ -75,7 +75,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewContent" />
+                    app:layout_constraintTop_toBottomOf="@id/textInputEditTextContent" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>

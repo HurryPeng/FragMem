@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         spEditor = sp.edit();
 
         fileHelper = new FileHelper(this);
-        fileHelper.getFragList(fragList);
 
         recyclerView = findViewById(R.id.recyclerView);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             spEditor.putInt("nextId", 7);
             spEditor.apply();
         }
+        fileHelper.getFragList(fragList);
     }
 
     @Override

@@ -6,8 +6,8 @@ android {
         applicationId "cc.hurrypeng.www.fragmem"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 6
-        versionName "0.3.1"
+        versionCode 7
+        versionName "0.3.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {

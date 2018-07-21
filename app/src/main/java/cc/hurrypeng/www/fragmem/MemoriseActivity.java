@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -32,7 +33,6 @@ public class MemoriseActivity extends AppCompatActivity {
     List<Frag> fragListSorted = new ArrayList<>();
     Frag frag;
     int position;
-    boolean visible;
 
     FileHelper fileHelper;
 
@@ -90,13 +90,11 @@ public class MemoriseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.getParent().requestDisallowInterceptTouchEvent(true);
                 if(position >= fragListSorted.size()) return;
-                if(visible) {
-                    layoutHide.setVisibility(View.INVISIBLE);
-                    visible = false;
+                if(layoutHide.getVisibility() == View.VISIBLE) {
+                    layoutHide.setVisibility(View.GONE);
                 }
                 else {
                     layoutHide.setVisibility(View.VISIBLE);
-                    visible = true;
                 }
             }
         });
@@ -204,7 +202,23 @@ public class MemoriseActivity extends AppCompatActivity {
             }
         }
 
-        layoutHide.setVisibility(View.INVISIBLE);
-        visible = false;
+        layoutHide.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK: {
+                if (photoView.getVisibility() == View.VISIBLE) {
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    photoView.setBackgroundColor(0x00ffffff);
+                    photoView.setVisibility(View.INVISIBLE);
+                    return true;
+                }
+            }
+            default:
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

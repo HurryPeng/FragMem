@@ -157,10 +157,18 @@ public class FragDetailActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK: {
-                Intent intentReturn = new Intent();
-                intentReturn.putExtra("position", position);
-                setResult(Util.RESULT_FRAG_VIEWED, intentReturn);
-                finish();
+                if (photoView.getVisibility() == View.VISIBLE) {
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    photoView.setBackgroundColor(0x00ffffff);
+                    photoView.setVisibility(View.INVISIBLE);
+                    return true;
+                } else {
+                    Intent intentReturn = new Intent();
+                    intentReturn.putExtra("position", position);
+                    setResult(Util.RESULT_FRAG_VIEWED, intentReturn);
+                    finish();
+                }
+                break;
             }
             default: break;
         }

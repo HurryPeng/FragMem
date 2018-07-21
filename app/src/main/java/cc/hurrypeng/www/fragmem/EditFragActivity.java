@@ -80,20 +80,18 @@ public class EditFragActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        imageView.setImageResource(R.drawable.ic_insert_photo_black_24dp);
-        ViewGroup.LayoutParams paramsImageView = imageView.getLayoutParams();
         if (frag.getImagePath().equals("empty")) { // Gson dies of an empty string
-            paramsImageView.width = 100;
+            imageView.setImageResource(R.drawable.ic_insert_photo_accent_24dp);
+            imageView.setAdjustViewBounds(false);
         } else {
             try {
                 Bitmap bitmap = BitmapFactory.decodeFile(frag.getImagePath());
                 imageView.setImageBitmap(bitmap);
-                paramsImageView.width = 0;
+                imageView.setAdjustViewBounds(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        imageView.setLayoutParams(paramsImageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -20,10 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FragListActivity"
-            android:label="@string/title_activity_frag_list"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".FragDetailActivity"
             android:label="@string/title_activity_frag_detail"
             android:theme="@style/AppTheme" />

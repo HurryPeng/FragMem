@@ -81,7 +81,7 @@ public class MemoriseActivity extends AppCompatActivity {
             }
         });
         position = -1;
-        frag = fragListSorted.get(0);
+        if (!fragListSorted.isEmpty()) frag = fragListSorted.get(0);
 
         nextFrag(0);
 

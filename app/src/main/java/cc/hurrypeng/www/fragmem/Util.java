@@ -41,6 +41,8 @@ public class Util {
     static public final int REQUEST_TAKE_PHOTO = 1;
     static public final int REQUEST_PICK_IMAGE = 2;
 
+    static public final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 1;
+
     static public class Frag {
 
         private long id;

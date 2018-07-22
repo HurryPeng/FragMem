@@ -1,9 +1,11 @@
 package cc.hurrypeng.www.fragmem;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,8 +14,10 @@ import android.os.Build;
 import android.provider.ContactsContract;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -109,7 +113,7 @@ public class EditFragActivity extends AppCompatActivity {
                                     break;
                                 }
                                 case R.id.menuItemGallery: {
-                                    pickImageFromGallery();
+                                    checkStoragePermission();
                                     break;
                                 }
                                 default: break;
@@ -129,7 +133,7 @@ public class EditFragActivity extends AppCompatActivity {
                                     break;
                                 }
                                 case R.id.menuItemGallery: {
-                                    pickImageFromGallery();
+                                    checkStoragePermission();
                                     break;
                                 }
                                 case R.id.menuItemDelete: {
@@ -159,22 +163,23 @@ public class EditFragActivity extends AppCompatActivity {
             }
             case Util.REQUEST_PICK_IMAGE: {
                 if (resultCode == RESULT_OK) {
-                    Log.e("TAG", "onActivityResulted: " );
-                    String extImagePath;
-                    if (Build.VERSION.SDK_INT >= 19) {
-                        extImagePath = handleImageOnKitKat(data);
-                    } else {
-                        extImagePath = handleImageBeforeKitKat(data);
-                    }
-                    File imageGallery = new File(extImagePath);
-                    newImagePath = fileHelper.getExternalPath()+ "image_frag" + frag.getId() + ".jpg";
-                    File imageCopy = new File(newImagePath);
                     try {
-                        fileHelper.copyFileTo(imageGallery, imageCopy);
-                    } catch (IOException e) {
+                        String extImagePath;
+                        if (Build.VERSION.SDK_INT >= 19) {
+                            extImagePath = handleImageOnKitKat(data);
+                        } else {
+                            extImagePath = handleImageBeforeKitKat(data);
+                        }
+                        Log.e("TAG", "onActivityResult: " + extImagePath );
+                        File imageGallery = new File(extImagePath);
+                        newImagePath = fileHelper.getExternalPath()+ "image_frag" + frag.getId() + ".jpg";
+                        File fileImageCopy = new File(newImagePath);
+                        fileHelper.copyFileTo(imageGallery, fileImageCopy);
+                        frag.setImagePath(newImagePath);
+                    } catch (Exception e) {
+                        Toast.makeText(EditFragActivity.this, getString(R.string.failedFromGallery), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
-                    }
-                    frag.setImagePath(newImagePath);
+                        }
                 }
             }
             default: break;
@@ -254,6 +259,25 @@ public class EditFragActivity extends AppCompatActivity {
         startActivityForResult(intent, Util.REQUEST_TAKE_PHOTO);
     }
 
+    private void checkStoragePermission() {
+        ActivityCompat.requestPermissions(EditFragActivity.this,
+                new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE}, Util.REQUEST_EXTERNAL_STORAGE_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case Util.REQUEST_EXTERNAL_STORAGE_PERMISSION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickImageFromGallery();
+                } else Toast.makeText(EditFragActivity.this, getString(R.string.permissionDenied), Toast.LENGTH_SHORT).show();
+                break;
+            }
+            default: break;
+        }
+    }
+
     private void pickImageFromGallery() {
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
@@ -274,7 +298,6 @@ public class EditFragActivity extends AppCompatActivity {
 
     @TargetApi(19)
     private String handleImageOnKitKat(Intent data) {
-        Log.e("TAG", "handleImageOnKitKat: 0");
         String imagePath = null;
         newImagePath = fileHelper.getExternalPath()+ "image_frag" + frag.getId() + ".jpg";
         Uri uri = data.getData();
@@ -284,23 +307,18 @@ public class EditFragActivity extends AppCompatActivity {
                 String id = docId.split(":")[1];
                 String selection = MediaStore.Images.Media._ID + "=" + id;
                 imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-                Log.e("TAG", "handleImageOnKitKat: 1");
             } else {
                 if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
                     Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
                     imagePath = getImagePath(contentUri, null);
-                    Log.e("TAG", "handleImageOnKitKat: 2");
                 }
             }
         } else {
             if ("content".equalsIgnoreCase(uri.getScheme())) {
                 imagePath = getImagePath(uri, null);
-                Log.e("TAG", "handleImageOnKitKat: 3");
             }
-
             if ("file".equalsIgnoreCase(uri.getScheme())) {
                 imagePath = uri.getPath();
-                Log.e("TAG", "handleImageOnKitKat: 4");
             }
         }
         return imagePath;

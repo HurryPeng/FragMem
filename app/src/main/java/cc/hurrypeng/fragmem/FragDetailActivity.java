@@ -1,4 +1,4 @@
-package cc.hurrypeng.www.fragmem;
+package cc.hurrypeng.fragmem;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,13 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.zzhoujay.richtext.RichText;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cc.hurrypeng.www.fragmem.Util.*;
+import cc.hurrypeng.fragmem.Util.*;
 
 public class FragDetailActivity extends AppCompatActivity {
 
@@ -54,7 +55,7 @@ public class FragDetailActivity extends AppCompatActivity {
 
         textViewTitle = findViewById(R.id.editTextTitle);
         textViewMem = findViewById(R.id.textViewMemory);
-        textViewContent = findViewById(R.id.textInputEditTextContent);
+        textViewContent = findViewById(R.id.textViewContent);
         imageView = findViewById(R.id.imageView);
         photoView = findViewById(R.id.photoView);
         layoutFrame = findViewById(R.id.layoutFrame);
@@ -93,7 +94,7 @@ public class FragDetailActivity extends AppCompatActivity {
         Date date = new Date(frag.getTimeLastMem());
         String stringMem = getString(R.string.STM) + frag.calculateShortTermMemory(System.currentTimeMillis()) + "   " + getString(R.string.LTM) + frag.getLongTermMemory() + '\n' + getString(R.string.lastReview) + SimpleDateFormat.getDateTimeInstance().format(date);
         textViewMem.setText(stringMem);
-        textViewContent.setText(frag.getContent());
+        RichText.fromMarkdown(frag.getContent()).into(textViewContent);
 
         if (frag.getImagePath().equals("empty")) {
             imageView.setImageDrawable(null);

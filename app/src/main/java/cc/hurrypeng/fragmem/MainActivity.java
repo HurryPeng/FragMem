@@ -1,4 +1,4 @@
-package cc.hurrypeng.www.fragmem;
+package cc.hurrypeng.fragmem;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,10 +23,12 @@ import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.zzhoujay.richtext.RichText;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import cc.hurrypeng.www.fragmem.Util.*;
+import cc.hurrypeng.fragmem.Util.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bottomAppBar = findViewById(R.id.bottomAppBar);
         setSupportActionBar(bottomAppBar);
+
+        RichText.initCacheDir(getCacheDir());
 
         sp = getSharedPreferences("fragmem", MODE_PRIVATE);
         spEditor = sp.edit();

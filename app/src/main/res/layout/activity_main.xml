@@ -11,15 +11,22 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark" >
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/app_name"/>
+            app:title="@string/app_name" />
+            <!--app:layout_scrollFlags="scroll|snap|enterAlways"!-->
 
     </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -29,9 +36,9 @@
         app:navigationIcon="@drawable/ic_add_black_24dp"
         style="@style/Widget.MaterialComponents.BottomAppBar"
         app:fabAlignmentMode="center"
-        app:fabAttached="true"
         app:fabCradleRoundedCornerRadius="0dp"
-        app:fabCradleMargin="0dp" />
+        app:fabCradleMargin="-28dp"
+        app:hideOnScroll="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -39,12 +46,5 @@
         android:layout_height="56dp"
         app:layout_anchor="@id/bottomAppBar"
         android:src="@drawable/ic_brain_white" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="58dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

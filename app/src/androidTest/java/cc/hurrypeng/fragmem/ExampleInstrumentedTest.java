@@ -1,4 +1,4 @@
-package cc.hurrypeng.www.fragmem;
+package cc.hurrypeng.fragmem;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("cc.hurrypeng.www.fragmem", appContext.getPackageName());
+        assertEquals("cc.hurrypeng.fragmem", appContext.getPackageName());
     }
 }

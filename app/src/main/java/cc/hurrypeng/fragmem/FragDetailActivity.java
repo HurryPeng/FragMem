@@ -1,4 +1,4 @@
-package cc.hurrypeng.www.fragmem;
+package cc.hurrypeng.fragmem;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cc.hurrypeng.www.fragmem.Util.*;
+import cc.hurrypeng.fragmem.Util.*;
 
 public class FragDetailActivity extends AppCompatActivity {
 

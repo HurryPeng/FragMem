@@ -1,4 +1,4 @@
-package cc.hurrypeng.www.fragmem;
+package cc.hurrypeng.fragmem;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +26,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import cc.hurrypeng.www.fragmem.Util.*;
+import cc.hurrypeng.fragmem.Util.*;
 
 public class MainActivity extends AppCompatActivity {
 

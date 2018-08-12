@@ -1,4 +1,4 @@
-package cc.hurrypeng.www.fragmem;
+package cc.hurrypeng.fragmem;
 
 import org.junit.Test;
 

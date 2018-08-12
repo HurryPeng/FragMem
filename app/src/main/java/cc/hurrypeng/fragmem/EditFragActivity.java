@@ -1,4 +1,4 @@
-package cc.hurrypeng.www.fragmem;
+package cc.hurrypeng.fragmem;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -40,7 +40,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cc.hurrypeng.www.fragmem.Util.*;
+import cc.hurrypeng.fragmem.Util.*;
 
 public class EditFragActivity extends AppCompatActivity {
 
@@ -79,6 +79,9 @@ public class EditFragActivity extends AppCompatActivity {
 
         editTextTitle.setText(frag.getTitle());
         textInputEditTextContent.setText(frag.getContent());
+
+        if (requestCode == Util.REQUEST_NEW_FRAG) editTextTitle.requestFocus();
+        else if (requestCode == Util.REQUEST_EDIT_FRAG) textInputEditTextContent.requestFocus();
     }
 
     @Override

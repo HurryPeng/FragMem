@@ -1,4 +1,4 @@
-package cc.hurrypeng.www.fragmem;
+package cc.hurrypeng.fragmem;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,7 +22,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import cc.hurrypeng.www.fragmem.Util.*;
+import cc.hurrypeng.fragmem.Util.*;
 
 public class MemoriseActivity extends AppCompatActivity {
 
@@ -151,11 +151,11 @@ public class MemoriseActivity extends AppCompatActivity {
                     break;
                 }
                 case STATE_VAGUE: {
-                    frag.setLongTermMemory((int) Math.round(100 - (100 - frag.getLongTermMemory())*0.9));
+                    frag.setLongTermMemory((int) Math.round(frag.getLongTermMemory() + (100 - frag.getShortTermMemory())*0.1));
                     break;
                 }
                 case STATE_YES: {
-                    frag.setLongTermMemory((int) Math.round(100 - (100 - frag.getLongTermMemory())*0.8));
+                    frag.setLongTermMemory((int) Math.round(frag.getLongTermMemory() - (100 - frag.getShortTermMemory())*0.2));
                     break;
                 }
             }

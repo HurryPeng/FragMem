@@ -95,7 +95,6 @@ public class FragDetailActivity extends AppCompatActivity {
         String stringMem = getString(R.string.STM) + frag.calculateShortTermMemory(System.currentTimeMillis()) + "   " + getString(R.string.LTM) + frag.getLongTermMemory() + '\n' + getString(R.string.lastReview) + SimpleDateFormat.getDateTimeInstance().format(date);
         textViewMem.setText(stringMem);
         RichText.fromMarkdown(frag.getContent()).into(textViewContent);
-
         if (frag.getImagePath().equals("empty")) {
             imageView.setImageDrawable(null);
             photoView.setImageDrawable(null);

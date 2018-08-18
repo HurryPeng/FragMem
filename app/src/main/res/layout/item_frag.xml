@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_margin="5dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    app:cardBackgroundColor="#FAFAFA" >
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,7 +37,6 @@
             android:layout_marginTop="8dp"
             android:gravity="start"
             android:maxLines="7"
-            android:text="content content content content content content content content content content content "
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -156,7 +156,7 @@ public class MemoriseActivity extends AppCompatActivity {
                     break;
                 }
                 case STATE_YES: {
-                    frag.setLongTermMemory((int) Math.round(frag.getLongTermMemory() - (100 - frag.getShortTermMemory())*0.2));
+                    frag.setLongTermMemory((int) Math.round(frag.getLongTermMemory() + (100 - frag.getShortTermMemory())*0.2));
                     break;
                 }
             }

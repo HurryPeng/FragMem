@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
             Frag frag = fragList.get(position);
             viewHolder.textViewTitle.setText(frag.getTitle());
-            viewHolder.textViewContent.setText(frag.getContent());
+            RichText.fromMarkdown(frag.getContent()).clickable(false).into(viewHolder.textViewContent);
         }
 
         @Override

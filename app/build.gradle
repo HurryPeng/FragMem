@@ -6,8 +6,8 @@ android {
         applicationId "cc.hurrypeng.fragmem"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 8
-        versionName "0.3.4"
+        versionCode 9
+        versionName "0.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
@@ -40,8 +40,7 @@ dependencies {
     implementation 'com.android.support:support-media-compat:28.0.0-rc01'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
-    implementation 'com.zzhoujay.richtext:richtext:3.0.5'
-    implementation 'us.feras.mdv:markdownview:1.1.0'
+    implementation 'com.zzhoujay.richtext:richtext:3.0.7'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

@@ -282,8 +282,7 @@ public class EditFragActivity extends AppCompatActivity {
     }
 
     private void pickImageFromGallery() {
-        Intent intent = new Intent("android.intent.action.GET_CONTENT");
-        intent.setType("image/*");
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, Util.REQUEST_PICK_IMAGE);
     }
 

@@ -188,7 +188,7 @@ public class MemoriseActivity extends AppCompatActivity {
         Date date = new Date(frag.getTimeLastMem());
         String stringMem = getString(R.string.STM) + frag.getShortTermMemory() + "   " + getString(R.string.LTM) + frag.getLongTermMemory() + '\n' + getString(R.string.lastReview) + SimpleDateFormat.getDateTimeInstance().format(date);
         textViewMem.setText(stringMem);
-        RichText.fromMarkdown(frag.getContent()).into(textViewContent);
+        RichText.fromMarkdown(frag.getContent()).clickable(false).into(textViewContent);
         if (frag.getImagePath().equals("empty")) {
             imageView.setImageDrawable(null);
             photoView.setImageDrawable(null);

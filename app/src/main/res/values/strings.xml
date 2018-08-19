@@ -22,7 +22,7 @@
     <string name="STM">STM:</string>
     <string name="LTM">LTM:</string>
     <string name="lastReview">Last review:</string>
-    <string name="aboutMessage">Version: 0.4.0\nLicense: GNU GPL V3\nDeveloper: HurryPeng GrakePch\nProject website: https://github.com/HurryPeng/FragMem</string>
+    <string name="aboutMessage">Version: 0.4.1\nLicense: GNU GPL V3\nDeveloper: HurryPeng GrakePch\nProject website: https://github.com/HurryPeng/FragMem</string>
     <string name="title_activity_memorise">Memorise</string>
     <string name="memorised">Memorised</string>
     <string name="forgot">Forgot</string>

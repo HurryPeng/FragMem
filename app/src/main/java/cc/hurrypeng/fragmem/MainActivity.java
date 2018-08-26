@@ -109,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
                 break;
             }
-            case android.R.id.home: {
-                fragList.add(new Frag(System.currentTimeMillis()));
+            case android.R.id.home: { // Add new frag, taking up the place of the drawer button
+                fragList.add(0, new Frag(System.currentTimeMillis()));
                 fileHelper.saveFragList(fragList);
                 Intent intent = new Intent(MainActivity.this, EditFragActivity.class);
                 intent.putExtra("request", Util.REQUEST_NEW_FRAG);
-                intent.putExtra("position", fragList.size() - 1);
+                intent.putExtra("position", 0);
                 startActivityForResult(intent, Util.REQUEST_NEW_FRAG);
             }
             default:
@@ -130,14 +130,14 @@ public class MainActivity extends AppCompatActivity {
             case Util.REQUEST_NEW_FRAG: {
                 switch (resultCode) {
                     case Util.RESULT_EDIT_DISCARDED: {
-                        fragList.remove(fragList.size() - 1);
+                        fragList.remove(0);
                         fileHelper.saveFragList(fragList);
                         break;
                     }
                     case Util.RESULT_EDIT_SAVED: {
                         fileHelper.getFragList(fragList);
-                        int position = data.getIntExtra("position", 0);
-                        fragAdapter.notifyItemInserted(position);
+                        fragAdapter.notifyItemInserted(0);
+                        recyclerView.scrollToPosition(0);
                         break;
                     }
                     default: break;

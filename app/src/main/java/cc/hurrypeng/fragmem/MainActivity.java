@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     List<Frag> fragList = new ArrayList<>();
 
-    Button buttonFrag;
-    Button buttonMem;
     BottomAppBar bottomAppBar;
     FloatingActionButton floatingActionButton;
     RecyclerView recyclerView;
@@ -58,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(bottomAppBar);
 
         RichText.initCacheDir(getCacheDir());
-
-        sp = getSharedPreferences("fragmem", MODE_PRIVATE);
-        spEditor = sp.edit();
 
         fileHelper = new FileHelper(this);
 
@@ -80,12 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // generate a set of frags when the app is installed
-        if (!sp.getBoolean("initialised", false)) {
-            fileHelper.saveExternalFile("frags.json", "[]");
-            spEditor.putBoolean("initialised", true);
-            spEditor.apply();
-        }
         fileHelper.getFragList(fragList);
     }
 

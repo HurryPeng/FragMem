@@ -23,7 +23,7 @@
     <string name="STM">短时记忆:</string>
     <string name="LTM">长时记忆:</string>
     <string name="lastReview">最近复习:</string>
-    <string name="aboutMessage">版本: 0.4.2\n许可证: GNU GPL V3\n开发者: HurryPeng GrakePch\n项目网站: https://github.com/HurryPeng/FragMem</string>
+    <string name="aboutMessage">版本: 0.4.3\n许可证: GNU GPL V3\n开发者: HurryPeng GrakePch\n项目网站: https://github.com/HurryPeng/FragMem</string>
     <string name="title_activity_memorise">记忆</string>
     <string name="memorised">记得</string>
     <string name="forgot">不记得</string>

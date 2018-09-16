@@ -19,10 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FragDetailActivity"
-            android:label="@string/title_activity_frag_detail"
-            android:theme="@style/AppTheme" />
+        <activity android:name=".FragDetailActivity" />
         <activity android:name=".EditFragActivity" />
         <activity android:name=".MemoriseActivity" />
 
@@ -35,7 +32,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
 
     </application>
 

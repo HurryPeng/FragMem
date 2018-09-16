@@ -31,6 +31,7 @@ public class MemoriseActivity extends AppCompatActivity {
     private final int STATE_VAGUE = 0;
     private final int STATE_YES = 1;
 
+    List<Frag> fragList = new ArrayList<>();
     List<Frag> fragListSorted = new ArrayList<>();
     Frag frag;
     int position;
@@ -68,6 +69,7 @@ public class MemoriseActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         photoView = findViewById(R.id.photoView);
 
+        fileHelper.getFragList(fragList);
         long timeCurrent = System.currentTimeMillis();
         fileHelper.getFragList(fragListSorted);
         for (Frag frag : fragListSorted) {
@@ -166,9 +168,9 @@ public class MemoriseActivity extends AppCompatActivity {
             Collections.sort(fragList, new Comparator<Frag>() {
                 @Override
                 public int compare(Frag frag1, Frag frag2) {
-                    if (frag1.getId() > frag2.getId()) return 1;
+                    if (frag1.getId() > frag2.getId()) return -1;
                     if (frag1.getId() == frag2.getId()) return 0;
-                    return -1;
+                    return 1;
                 }
             });
             fileHelper.saveFragList(fragList);

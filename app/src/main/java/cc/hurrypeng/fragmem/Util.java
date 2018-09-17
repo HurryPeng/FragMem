@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -53,6 +52,8 @@ public class Util {
         private int shortTermMemoryMax;
         private int longTermMemory;
         private int shortTermMemory;
+
+        private static double Stability = 78644669.18; // Stability of memory. This value stands for a 33.33% memory after 24 hrs.
 
         public Frag(long id, String title, String content, String imagePath, long timeLastMem, int shortTermMemoryMax , int longTermMemory, int shortTermMemory) {
             this.id = id;
@@ -142,9 +143,7 @@ public class Util {
         }
 
         public int calculateShortTermMemory(long timeCurrentMillis) {
-            int realShortTimeMemory = (int) Math.round((125 - 5.25 * Math.log(33333333*((double) (timeCurrentMillis - timeLastMem) / 3600000 + 0.000001)))*((double) (shortTermMemoryMax - longTermMemory) / 100) + longTermMemory);
-            if (realShortTimeMemory < longTermMemory) shortTermMemory = longTermMemory;
-            else shortTermMemory = realShortTimeMemory;
+            shortTermMemory = (int) Math.round(longTermMemory + (shortTermMemoryMax - longTermMemory) * Math.pow(Math.E, - (timeCurrentMillis - timeLastMem)/ Stability));
             return shortTermMemory;
         }
 

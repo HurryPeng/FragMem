@@ -148,6 +148,29 @@ public class FragDetailActivity extends AppCompatActivity {
                 startActivityForResult(intent, Util.REQUEST_EDIT_FRAG);
                 break;
             }
+            case R.id.menuItemRelearn: {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(FragDetailActivity.this);
+                dialog.setMessage(getString(R.string.relearnFrag));
+                dialog.setPositiveButton(getString(R.string.Relearn), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        frag.setLongTermMemory(0);
+                        frag.setShortTermMemory(0);
+                        frag.setShortTermMemoryMax(0);
+                        fragList.set(position, frag);
+                        fileHelper.saveFragList(fragList);
+                        Toast.makeText(FragDetailActivity.this, getString(R.string.LTMReset), Toast.LENGTH_SHORT).show();
+                        onStart();
+                    }
+                });
+                dialog.setNegativeButton(getString(R.string.Cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                dialog.show();
+                break;
+            }
             default: break;
         }
         return super.onOptionsItemSelected(item);

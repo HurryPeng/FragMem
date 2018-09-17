@@ -22,7 +22,7 @@
     <string name="STM">STM:</string>
     <string name="LTM">LTM:</string>
     <string name="lastReview">Last review:</string>
-    <string name="aboutMessage">Version: 0.4.3\nLicense: GNU GPL V3\nDeveloper: HurryPeng GrakePch\nProject website: https://github.com/HurryPeng/FragMem</string>
+    <string name="aboutMessage">Version: 0.5.0\nLicense: GNU GPL V3\nDeveloper: HurryPeng GrakePch\nProject website: https://github.com/HurryPeng/FragMem</string>
     <string name="title_activity_memorise">Memorise</string>
     <string name="memorised">Memorised</string>
     <string name="forgot">Forgot</string>
@@ -33,4 +33,7 @@
     <string name="permissionDenied">To add images from gallery, storage permissions is necessary</string>
     <string name="failedFromGallery">Failed picking image from gallery, please try another path (e.g. "recent")</string>
     <string name="MDSupported">Markdown supported</string>
+    <string name="Relearn">Re-learn</string>
+    <string name="relearnFrag">Reset LTM and re-learn this frag? </string>
+    <string name="LTMReset">LTM reset</string>
 </resources>

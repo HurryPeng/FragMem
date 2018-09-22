@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FragAdapter fragAdapter;
 
-    SharedPreferences sp;
-    SharedPreferences.Editor spEditor;
-
     FileHelper fileHelper;
 
     protected void onCreate(Bundle savedInstanceState) {

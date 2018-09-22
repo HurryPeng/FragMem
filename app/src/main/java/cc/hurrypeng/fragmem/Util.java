@@ -239,7 +239,7 @@ public class Util {
             strJson = strJson.replaceAll(" ", "nbsp"); // Gson will drop dead when it meets a space in a json string
             List<Frag> newFragList = gson.fromJson(strJson, new TypeToken<List<Frag>>(){}.getType());
             fragList.clear();
-            fragList.addAll(newFragList);
+            if (newFragList != null) fragList.addAll(newFragList);
             for (Frag frag : fragList) {
                 String title = frag.getTitle();
                 title = title.replaceAll("nbsp", " ");

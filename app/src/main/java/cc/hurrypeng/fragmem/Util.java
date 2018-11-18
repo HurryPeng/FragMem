@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -49,11 +50,29 @@ public class Util {
         private String content;
         private String imagePath;
         private long timeLastMem;
-        private int shortTermMemoryMax;
-        private int longTermMemory;
-        private int shortTermMemory;
+        private double shortTermMemoryMax;
+        private double longTermMemory;
+        private double shortTermMemory;
 
         private static double Stability = 78644669.18; // Stability of memory. This value stands for a 33.33% memory after 24 hrs.
+
+        static final public Comparator compareSTM = new Comparator<Frag>() {
+            @Override
+            public int compare(Frag frag1, Frag frag2) {
+                if (frag1.getShortTermMemory() > frag2.getShortTermMemory()) return 1;
+                if (frag1.getShortTermMemory() == frag2.getShortTermMemory()) return 0;
+                return -1;
+            }
+        };
+
+        static final public Comparator compareId = new Comparator<Frag>() {
+            @Override
+            public int compare(Frag frag1, Frag frag2) {
+                if (frag1.getId() < frag2.getId()) return 1;
+                if (frag1.getId() == frag2.getId()) return 0;
+                return -1;
+            }
+        };
 
         public Frag(long id, String title, String content, String imagePath, long timeLastMem, int shortTermMemoryMax , int longTermMemory, int shortTermMemory) {
             this.id = id;
@@ -98,15 +117,17 @@ public class Util {
             this.timeLastMem = timeLastMem;
         }
 
-        public void setShortTermMemoryMax(int shortTermMemoryMax) {
+        public void setShortTermMemoryMax(double shortTermMemoryMax) {
             this.shortTermMemoryMax = shortTermMemoryMax;
         }
 
-        public void setLongTermMemory(int longTermMemory) {
-            this.longTermMemory = longTermMemory;
+        public void setLongTermMemory(double longTermMemory) {
+            if (longTermMemory <= 0.0) this.longTermMemory = 0.0;
+            else if (longTermMemory >= 100.0) this.longTermMemory = 100.0;
+            else this.longTermMemory = longTermMemory;
         }
 
-        public void setShortTermMemory(int shortTermMemory) {
+        public void setShortTermMemory(double shortTermMemory) {
             this.shortTermMemory = shortTermMemory;
         }
 
@@ -130,24 +151,25 @@ public class Util {
             return timeLastMem;
         }
 
-        public int getShortTermMemoryMax() {
+        public double getShortTermMemoryMax() {
             return shortTermMemoryMax;
         }
 
-        public int getLongTermMemory () {
+        public double getLongTermMemory () {
             return longTermMemory;
         }
 
-        public int getShortTermMemory() {
+        public double getShortTermMemory() {
             return shortTermMemory;
         }
 
-        public int calculateShortTermMemory(long timeCurrentMillis) {
-            shortTermMemory = (int) Math.round(longTermMemory + (shortTermMemoryMax - longTermMemory) * Math.pow(Math.E, - (timeCurrentMillis - timeLastMem)/ Stability));
+        public double calculateShortTermMemory(long timeCurrentMillis) {
+            shortTermMemory = longTermMemory + (shortTermMemoryMax - longTermMemory) * Math.pow(Math.E, - (timeCurrentMillis - timeLastMem)/ Stability);
             return shortTermMemory;
         }
 
     }
+
 
     static public class FileHelper {
         private Context context;

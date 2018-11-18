@@ -31,6 +31,7 @@ public class MemoriseActivity extends AppCompatActivity {
     private final int STATE_VAGUE = 0;
     private final int STATE_YES = 1;
 
+    List<Frag> fragList = new ArrayList<>();
     List<Frag> fragListSorted = new ArrayList<>();
     Frag frag;
     int position;
@@ -69,18 +70,12 @@ public class MemoriseActivity extends AppCompatActivity {
         photoView = findViewById(R.id.photoView);
 
         long timeCurrent = System.currentTimeMillis();
+        fileHelper.getFragList(fragList);
         fileHelper.getFragList(fragListSorted);
         for (Frag frag : fragListSorted) {
             frag.calculateShortTermMemory(timeCurrent);
         }
-        Collections.sort(fragListSorted, new Comparator<Frag>() {
-            @Override
-            public int compare(Frag frag1, Frag frag2) {
-                if (frag1.getShortTermMemory() > frag2.getShortTermMemory()) return 1;
-                if (frag1.getShortTermMemory() == frag2.getShortTermMemory()) return 0;
-                return -1;
-            }
-        });
+        Collections.sort(fragListSorted, Frag.compareSTM);
         position = -1;
         if (!fragListSorted.isEmpty()) frag = fragListSorted.get(0);
 
@@ -146,31 +141,25 @@ public class MemoriseActivity extends AppCompatActivity {
 
         if(position != -1) {
             frag.setTimeLastMem(System.currentTimeMillis());
-            frag.setShortTermMemoryMax(100);
+            frag.setShortTermMemoryMax(100.0);
             switch (recallState) {
                 case STATE_NO: {
+                    frag.setLongTermMemory(frag.getLongTermMemory() + (Math.random() - 0.5));
                     break;
                 }
                 case STATE_VAGUE: {
-                    frag.setLongTermMemory((int) Math.round(frag.getLongTermMemory() + (100 - frag.getShortTermMemory())*0.1));
+                    frag.setLongTermMemory(frag.getLongTermMemory() + (100 - frag.getShortTermMemory())*0.1 + (Math.random() - 0.5));
                     break;
                 }
                 case STATE_YES: {
-                    frag.setLongTermMemory((int) Math.round(frag.getLongTermMemory() + (100 - frag.getShortTermMemory())*0.2));
+                    frag.setLongTermMemory(frag.getLongTermMemory() + (100 - frag.getShortTermMemory())*0.2 + (Math.random() - 0.5));
                     break;
                 }
+                // A random number is used to break the strict order of frags created at almost the same time
             }
 
             fragListSorted.set(position, frag);
-            List<Frag> fragList = new ArrayList<>(fragListSorted);
-            Collections.sort(fragList, new Comparator<Frag>() {
-                @Override
-                public int compare(Frag frag1, Frag frag2) {
-                    if (frag1.getId() > frag2.getId()) return -1;
-                    if (frag1.getId() == frag2.getId()) return 0;
-                    return 1;
-                }
-            });
+            fragList.set(Collections.binarySearch(fragList, frag, Frag.compareId), frag);
             fileHelper.saveFragList(fragList);
         }
 
@@ -186,7 +175,7 @@ public class MemoriseActivity extends AppCompatActivity {
         frag = fragListSorted.get(position);
         textViewTitle.setText(frag.getTitle());
         Date date = new Date(frag.getTimeLastMem());
-        String stringMem = getString(R.string.STM) + frag.getShortTermMemory() + "   " + getString(R.string.LTM) + frag.getLongTermMemory() + '\n' + getString(R.string.lastReview) + SimpleDateFormat.getDateTimeInstance().format(date);
+        String stringMem = getString(R.string.STM) + Math.round(frag.getShortTermMemory()) + "   " + getString(R.string.LTM) + Math.round(frag.getLongTermMemory()) + '\n' + getString(R.string.lastReview) + SimpleDateFormat.getDateTimeInstance().format(date);
         textViewMem.setText(stringMem);
         RichText.fromMarkdown(frag.getContent()).clickable(false).into(textViewContent);
         if (frag.getImagePath().equals("empty")) {

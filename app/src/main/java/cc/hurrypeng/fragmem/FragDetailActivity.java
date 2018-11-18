@@ -92,7 +92,7 @@ public class FragDetailActivity extends AppCompatActivity {
 
         textViewTitle.setText(frag.getTitle());
         Date date = new Date(frag.getTimeLastMem());
-        String stringMem = getString(R.string.STM) + frag.calculateShortTermMemory(System.currentTimeMillis()) + "   " + getString(R.string.LTM) + frag.getLongTermMemory() + '\n' + getString(R.string.lastReview) + SimpleDateFormat.getDateTimeInstance().format(date);
+        String stringMem = getString(R.string.STM) + Math.round(frag.calculateShortTermMemory(System.currentTimeMillis())) + "   " + getString(R.string.LTM) + Math.round(frag.getLongTermMemory()) + '\n' + getString(R.string.lastReview) + SimpleDateFormat.getDateTimeInstance().format(date);
         textViewMem.setText(stringMem);
         RichText.fromMarkdown(frag.getContent()).into(textViewContent);
         if (frag.getImagePath().equals("empty")) {
